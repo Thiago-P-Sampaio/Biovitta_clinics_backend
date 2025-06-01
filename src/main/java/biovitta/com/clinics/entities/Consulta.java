@@ -14,7 +14,14 @@ public class Consulta {
     @Column(name =  "data_consulta")
     private LocalDateTime dataConsulta;
 
-    // Relacionamentos...
+
+    @ManyToOne
+    @JoinColumn(name =  "paciente_id")
+    private Paciente paciente;
+
+    @ManyToOne
+    @JoinColumn(name = "medico_id")
+    private Medico medico;
 
 
     public Consulta() {

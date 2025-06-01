@@ -1,9 +1,8 @@
 package biovitta.com.clinics.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table (name = "tb_medico" )
@@ -20,6 +19,10 @@ public class Medico {
     private String telefone;
     @Column(name = "img_url")
     private String imgUrl;
+
+
+    @OneToMany(mappedBy = "medico")
+    private List<Consulta> consultasMedico;
 
     public Medico() {
     }

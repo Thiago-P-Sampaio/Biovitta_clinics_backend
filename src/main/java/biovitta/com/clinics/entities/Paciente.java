@@ -3,6 +3,7 @@ package biovitta.com.clinics.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table (name =  "tb_paciente")
@@ -21,6 +22,9 @@ public class Paciente {
     private String imgUrl;
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
+
+    @OneToMany(mappedBy = "paciente")
+    private List<Consulta> consultas;
 
     public Paciente() {
     }
