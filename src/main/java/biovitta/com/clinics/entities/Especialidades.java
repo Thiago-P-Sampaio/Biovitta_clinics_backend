@@ -2,6 +2,8 @@ package biovitta.com.clinics.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table (name =  "tb_especialidade")
 public class Especialidades {
@@ -11,6 +13,9 @@ public class Especialidades {
     private Long especialidadeId;
     @Column( name = "nome", unique = true)
     private String nome;
+
+    @ManyToMany( mappedBy = "especialidades")
+    private List<Medico> medicos;
 
     public Especialidades() {
     }

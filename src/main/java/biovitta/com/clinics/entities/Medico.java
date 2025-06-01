@@ -24,6 +24,14 @@ public class Medico {
     @OneToMany(mappedBy = "medico")
     private List<Consulta> consultasMedico;
 
+    @ManyToMany
+    @JoinTable(
+            name = "tb_medico_especialidade",
+            joinColumns = @JoinColumn(name = "medico_id"),
+            inverseJoinColumns = @JoinColumn(name = "especialidade_id")
+    )
+    private List<Especialidades> especialidades;
+
     public Medico() {
     }
 
