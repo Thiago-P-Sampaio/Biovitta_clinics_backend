@@ -10,7 +10,7 @@ import jakarta.persistence.Table;
 public class Medico {
 
     @Id
-    @Column(name = "crm", unique = true)
+    @Column(name = "crm", unique = true, length = 15)
     private String crm;
     @Column(name = "nome")
     private String nome;
