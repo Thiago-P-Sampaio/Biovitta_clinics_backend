@@ -82,4 +82,20 @@ public class Medico {
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
+
+    public List<Consulta> getConsultasMedico() {
+        return consultasMedico;
+    }
+
+    public void setConsultasMedico(List<Consulta> consultasMedico) {
+        this.consultasMedico = consultasMedico;
+    }
+
+    public List<Especialidades> getEspecialidades() {
+        return especialidades;
+    }
+
+    public void setEspecialidades(List<Especialidades> especialidades) {
+        this.especialidades = especialidades;
+    }
 }

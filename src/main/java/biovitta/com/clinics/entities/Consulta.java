@@ -46,4 +46,20 @@ public class Consulta {
     public void setDataConsulta(LocalDateTime dataConsulta) {
         this.dataConsulta = dataConsulta;
     }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
 }

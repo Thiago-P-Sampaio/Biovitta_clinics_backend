@@ -85,4 +85,12 @@ public class Paciente {
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
+
+    public List<Consulta> getConsultas() {
+        return consultas;
+    }
+
+    public void setConsultas(List<Consulta> consultas) {
+        this.consultas = consultas;
+    }
 }

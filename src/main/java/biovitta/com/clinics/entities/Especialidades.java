@@ -40,4 +40,12 @@ public class Especialidades {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public List<Medico> getMedicos() {
+        return medicos;
+    }
+
+    public void setMedicos(List<Medico> medicos) {
+        this.medicos = medicos;
+    }
 }
