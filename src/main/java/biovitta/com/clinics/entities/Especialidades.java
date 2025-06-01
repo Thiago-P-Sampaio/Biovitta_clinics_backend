@@ -17,6 +17,10 @@ public class Especialidades {
     @ManyToMany( mappedBy = "especialidades")
     private List<Medico> medicos;
 
+    @OneToMany (mappedBy = "especialidade")
+    private List<Consulta> consultas;
+
+
     public Especialidades() {
     }
 

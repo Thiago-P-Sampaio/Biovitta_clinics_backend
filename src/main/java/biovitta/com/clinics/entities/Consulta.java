@@ -23,6 +23,10 @@ public class Consulta {
     @JoinColumn(name = "medico_id")
     private Medico medico;
 
+    @ManyToOne
+    @JoinColumn(name = "especialidade_id")
+    private Especialidades especialidade;
+
 
     public Consulta() {
     }
