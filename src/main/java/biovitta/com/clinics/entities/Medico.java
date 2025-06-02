@@ -32,6 +32,11 @@ public class Medico {
     )
     private List<Especialidades> especialidades;
 
+
+    @OneToOne
+    @JoinColumn( name = "usuario_id")
+    private Usuario usuario;
+
     public Medico() {
     }
 

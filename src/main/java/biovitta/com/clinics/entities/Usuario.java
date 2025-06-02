@@ -18,6 +18,13 @@ public class Usuario {
     @Column(name = "role", nullable = false)
     private Permissao role;
 
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private Paciente paciente;
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private Medico medico;
+
+
+
     public Usuario() {
     }
 

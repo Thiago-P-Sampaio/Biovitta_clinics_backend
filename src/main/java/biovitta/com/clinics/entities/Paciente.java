@@ -26,6 +26,11 @@ public class Paciente {
     @OneToMany(mappedBy = "paciente")
     private List<Consulta> consultas;
 
+
+    @OneToOne
+    @JoinColumn( name = "usuario_id")
+    private Usuario usuario;
+
     public Paciente() {
     }
 
