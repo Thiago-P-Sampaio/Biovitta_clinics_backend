@@ -15,13 +15,17 @@ public class Usuario {
     @Column(name = "senha")
     private String senha;
 
+    @Column(name = "role", nullable = false)
+    private Permissao role;
+
     public Usuario() {
     }
 
-    public Usuario(Long usuarioId, String usuario, String senha) {
+    public Usuario(Long usuarioId, String usuario, String senha, Permissao role) {
         this.usuarioId = usuarioId;
         this.usuario = usuario;
         this.senha = senha;
+        this.role = role;
     }
 
     public Long getUsuarioId() {
@@ -48,4 +52,11 @@ public class Usuario {
         this.senha = senha;
     }
 
+    public Permissao getRole() {
+        return role;
+    }
+
+    public void setRole(Permissao role) {
+        this.role = role;
+    }
 }
