@@ -31,8 +31,8 @@ public class AutorizacaoConfig implements WebMvcConfigurer {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "biovitta/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "biovitta/api/paciente/add").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/biovitta/auth/**").permitAll() // Todos podem se registrar e logar
+                        .requestMatchers(HttpMethod.POST, "/biovitta/api/usuario/**").permitAll()
                 )
 
                 .addFilterBefore(filtroSeguranca, UsernamePasswordAuthenticationFilter.class )

@@ -3,24 +3,24 @@ package biovitta.com.clinics.DTOs;
 import biovitta.com.clinics.entities.Permissao;
 import biovitta.com.clinics.entities.Usuario;
 
-public class DTOUsuarioADM {
+public class UsuarioDTO {
 
     private Long usuarioId;
     private String usuario;
     private String senha;
     private Permissao role;
 
-    public DTOUsuarioADM() {
+    public UsuarioDTO() {
     }
 
-    public DTOUsuarioADM(Long usuarioId, String usuario, String senha, Permissao role) {
+    public UsuarioDTO(Long usuarioId, String usuario, String senha, Permissao role) {
         this.usuarioId = usuarioId;
         this.usuario = usuario;
         this.senha = senha;
         this.role = role;
     }
 
-    public DTOUsuarioADM(Usuario entity){
+    public UsuarioDTO(Usuario entity){
         usuarioId = entity.getUsuarioId();
         usuario = entity.getUsuario();
         senha = entity.getSenha();
