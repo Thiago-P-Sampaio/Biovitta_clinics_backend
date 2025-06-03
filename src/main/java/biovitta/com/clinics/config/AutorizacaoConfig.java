@@ -33,6 +33,9 @@ public class AutorizacaoConfig implements WebMvcConfigurer {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/biovitta/auth/**").permitAll() // Todos podem se registrar e logar
                         .requestMatchers(HttpMethod.POST, "/biovitta/api/usuario/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/biovitta/api/usuario/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/biovitta/api/usuario/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/biovitta/api/usuario/**").permitAll()
                 )
 
                 .addFilterBefore(filtroSeguranca, UsernamePasswordAuthenticationFilter.class )
