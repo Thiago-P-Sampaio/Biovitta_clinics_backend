@@ -8,12 +8,12 @@ public class UsuarioDTO {
     private Long usuarioId;
     private String usuario;
     private String senha;
-    private Permissao role;
+    private String role;
 
     public UsuarioDTO() {
     }
 
-    public UsuarioDTO(Long usuarioId, String usuario, String senha, Permissao role) {
+    public UsuarioDTO(Long usuarioId, String usuario, String senha, String role) {
         this.usuarioId = usuarioId;
         this.usuario = usuario;
         this.senha = senha;
@@ -24,7 +24,7 @@ public class UsuarioDTO {
         usuarioId = entity.getUsuarioId();
         usuario = entity.getUsuario();
         senha = entity.getSenha();
-        role = entity.getRole();
+        role = entity.getRole().toString();
 
 
     }
@@ -53,11 +53,11 @@ public class UsuarioDTO {
         this.senha = senha;
     }
 
-    public Permissao getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(Permissao role) {
+    public void setRole(String role) {
         this.role = role;
     }
 }
