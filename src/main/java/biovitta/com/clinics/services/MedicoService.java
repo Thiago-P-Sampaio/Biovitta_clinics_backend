@@ -2,6 +2,7 @@ package biovitta.com.clinics.services;
 
 
 import biovitta.com.clinics.DTOs.MedicoDTO;
+import biovitta.com.clinics.DTOs.MedicoEspecialidadesDTO;
 import biovitta.com.clinics.DTOs.PacienteDTO;
 import biovitta.com.clinics.DTOs.cadastro.MedicoRequestDTO;
 import biovitta.com.clinics.entities.Medico;
@@ -58,7 +59,7 @@ public class MedicoService {
 
         medico = medicoRepositorio.save(medico);
 
-        Usuario usuario = medicoRepositorio.findByEmail(dto.getEmail());
+        Usuario usuario = usuarioRepositorio.findById(medico.getUsuario().getUsuarioId()).get();
         Optional.ofNullable(dto.getSenha())
                 .filter(s -> !s.isBlank())
                 .map(config::encode)
@@ -93,4 +94,13 @@ public class MedicoService {
 
         return "Médico deletado com Sucesso!";
     }
+
+    @Transactional
+    public MedicoEspecialidadesDTO medicoEspecialidades(String crm){
+        Medico medico = medicoRepositorio.findById(crm).
+                orElseThrow(() -> new EntityNotFoundException("Médico não encontrado com CRM: " + crm));
+
+        return new MedicoEspecialidadesDTO(medico);
+    }
+
 }

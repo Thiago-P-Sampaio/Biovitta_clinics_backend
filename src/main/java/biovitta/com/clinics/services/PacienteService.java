@@ -40,7 +40,7 @@ public class PacienteService {
         Optional.ofNullable(dto.getDataNascimento()).ifPresent(paciente::setDataNascimento);
             paciente = pacienteRepositorio.save(paciente);
 
-            Usuario usuario = pacienteRepositorio.findByEmail(dto.getEmail());
+            Usuario usuario = usuarioRepositorio.findById(paciente.getUsuario().getUsuarioId()).get();
             Optional.ofNullable(dto.getSenha())
                 .filter(s -> !s.isBlank())
                 .map(config::encode)
