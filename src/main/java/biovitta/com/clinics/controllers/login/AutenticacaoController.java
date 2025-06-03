@@ -1,6 +1,8 @@
 package biovitta.com.clinics.controllers.login;
 
+import biovitta.com.clinics.DTOs.cadastro.PacienteRequestDTO;
 import biovitta.com.clinics.DTOs.login.AutenticacaoDTO;
+import biovitta.com.clinics.services.UsuarioService;
 import biovitta.com.clinics.services.autenticacao.AutenticacaoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +19,17 @@ public class AutenticacaoController {
     @Autowired
     AutenticacaoService autenticacaoService;
 
+    @Autowired
+    UsuarioService usuarioService;
+
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AutenticacaoDTO dados ){
+    public ResponseEntity<?> login(@RequestBody @Valid AutenticacaoDTO dados ){
         return ResponseEntity.ok(autenticacaoService.login(dados));
     }
 
+    @PostMapping("/register")
+    public ResponseEntity<?> registrar(@RequestBody @Valid PacienteRequestDTO dto){
+        return  ResponseEntity.ok(usuarioService.novoPaciente(dto));
+    }
 
 }
