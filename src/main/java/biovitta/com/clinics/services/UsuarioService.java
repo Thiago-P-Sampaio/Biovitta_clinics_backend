@@ -43,13 +43,15 @@ public class UsuarioService {
         novoPaciente.setTelefone(dto.getTelefone());
         novoPaciente.setDataNascimento(dto.getDataNascimento());
         novoPaciente.setImgUrl(dto.getImgUrl());
-        novoPaciente = pacienteRepositorio.save(novoPaciente);
 
         Usuario usuario = new Usuario();
         usuario.setRole(Permissao.PACIENTE);
         usuario.setUsuario(dto.getEmail());
         usuario.setSenha(config.encode(dto.getSenha()));
+
         usuario = usuarioRepositorio.save(usuario);
+        novoPaciente.setUsuario(usuario); // SETANDO O USUÁRIO!!!
+        novoPaciente = pacienteRepositorio.save(novoPaciente);
 
 
         return  new PacienteDTO(novoPaciente);
@@ -66,7 +68,6 @@ public class UsuarioService {
         novoMedico.setEmail(dto.getEmail());
         novoMedico.setTelefone(dto.getTelefone());
         novoMedico.setImgUrl(dto.getImgUrl());
-        novoMedico = medicoRepositorio.save(novoMedico);
 
         Usuario usuario = new Usuario();
         usuario.setRole(Permissao.MEDICO);
@@ -74,6 +75,8 @@ public class UsuarioService {
         usuario.setSenha(config.encode(dto.getSenha()));
 
         usuario = usuarioRepositorio.save(usuario);
+        novoMedico.setUsuario(usuario); //SETANDO O USUÁRIO
+        novoMedico = medicoRepositorio.save(novoMedico);
 
         return  new MedicoDTO(novoMedico);
     }
@@ -86,4 +89,6 @@ public class UsuarioService {
         usuario = usuarioRepositorio.save(usuario);
         return "Novo usuário(ADM) criado com sucesso!";
     }
+
+
 }
