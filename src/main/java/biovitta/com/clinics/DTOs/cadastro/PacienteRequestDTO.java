@@ -2,6 +2,7 @@ package biovitta.com.clinics.DTOs.cadastro;
 
 import biovitta.com.clinics.DTOs.PacienteDTO;
 import biovitta.com.clinics.entities.Paciente;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
