@@ -29,14 +29,8 @@ public class AutorizacaoConfig implements WebMvcConfigurer {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return  httpSecurity
                 .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/biovitta/auth/**").permitAll() // Todos podem se registrar e logar
-                        .requestMatchers(HttpMethod.POST, "/biovitta/api/usuario/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/biovitta/api/usuario/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/biovitta/api/usuario/**").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/biovitta/api/usuario/**").permitAll()
-                )
+                        .anyRequest().permitAll())
 
                 .addFilterBefore(filtroSeguranca, UsernamePasswordAuthenticationFilter.class )
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
