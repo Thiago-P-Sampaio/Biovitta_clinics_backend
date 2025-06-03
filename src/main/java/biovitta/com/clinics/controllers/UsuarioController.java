@@ -5,11 +5,15 @@ import biovitta.com.clinics.DTOs.PacienteDTO;
 import biovitta.com.clinics.DTOs.UsuarioDTO;
 import biovitta.com.clinics.DTOs.cadastro.MedicoRequestDTO;
 import biovitta.com.clinics.DTOs.cadastro.PacienteRequestDTO;
+import biovitta.com.clinics.entities.Paciente;
+import biovitta.com.clinics.services.PacienteService;
 import biovitta.com.clinics.services.UsuarioService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("biovitta/api/usuario")
@@ -18,9 +22,11 @@ public class UsuarioController {
     @Autowired
     UsuarioService usuarioService;
 
-    //AREA DO ADMINISTRADOR
+    @Autowired
+    PacienteService pacienteService;
 
-    @PostMapping("/paciente/add")
+
+        @PostMapping("/paciente/add")
     public ResponseEntity<PacienteDTO> adicionarPaciente(@RequestBody @Valid PacienteRequestDTO dto){
         return ResponseEntity.ok(usuarioService.novoPaciente(dto));
     }
@@ -33,5 +39,20 @@ public class UsuarioController {
     @PostMapping("adm/add")
     public ResponseEntity<?> adicionarAdministrador(@RequestBody @Valid UsuarioDTO dto){
         return ResponseEntity.ok(usuarioService.novoAdministrador(dto));
+    }
+
+    @GetMapping("paciente/get/all")
+    public ResponseEntity<List<PacienteDTO>> listarPacientes(){
+        return ResponseEntity.ok(pacienteService.listarPacientes());
+    }
+
+    @GetMapping("paciente/get/{id}")
+    public ResponseEntity<PacienteDTO> buscarPaciente(@PathVariable Long id){
+            return ResponseEntity.ok(pacienteService.buscarPaciente(id));
+    }
+
+    @DeleteMapping("paciente/dell/{id}")
+    public  String deletarPaciente(@PathVariable Long id){
+            return pacienteService.deletarPaciente(id);
     }
 }
