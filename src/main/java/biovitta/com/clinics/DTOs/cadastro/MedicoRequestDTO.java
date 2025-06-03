@@ -2,6 +2,8 @@ package biovitta.com.clinics.DTOs.cadastro;
 
 import biovitta.com.clinics.entities.Medico;
 
+import java.util.List;
+
 public class MedicoRequestDTO {
 
     private String crm;
@@ -10,14 +12,18 @@ public class MedicoRequestDTO {
     private String telefone;
     private String imgUrl;
     private String senha;
+    private List<Long> especialidesIds;
 
-    public MedicoRequestDTO(String crm, String nome, String email, String telefone, String imgUrl, String senha) {
+
+    public MedicoRequestDTO(String crm, String nome, String email, String telefone,
+                            String imgUrl, String senha, List<Long> especialidesIds) {
         this.crm = crm;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.imgUrl = imgUrl;
         this.senha = senha;
+        this.especialidesIds = especialidesIds;
     }
 
     public MedicoRequestDTO(Medico entity){
@@ -27,6 +33,10 @@ public class MedicoRequestDTO {
         telefone = entity.getTelefone();
         imgUrl = entity.getImgUrl();
         senha = null;
+        especialidesIds = entity.getEspecialidades()
+                .stream()
+                .map(especialidade -> especialidade.getEspecialidadeId())
+                .toList();
     }
 
     public MedicoRequestDTO() {
@@ -78,5 +88,13 @@ public class MedicoRequestDTO {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public List<Long> getEspecialidesIds() {
+        return especialidesIds;
+    }
+
+    public void setEspecialidesIds(List<Long> especialidesIds) {
+        this.especialidesIds = especialidesIds;
     }
 }
