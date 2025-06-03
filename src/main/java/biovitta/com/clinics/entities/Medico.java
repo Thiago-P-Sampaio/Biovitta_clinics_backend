@@ -103,4 +103,13 @@ public class Medico {
     public void setEspecialidades(List<Especialidades> especialidades) {
         this.especialidades = especialidades;
     }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
 }
