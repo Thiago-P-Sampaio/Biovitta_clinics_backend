@@ -1,10 +1,15 @@
 package biovitta.com.clinics.services;
 
+import biovitta.com.clinics.DTOs.MedicoDTO;
 import biovitta.com.clinics.DTOs.PacienteDTO;
+import biovitta.com.clinics.DTOs.UsuarioDTO;
+import biovitta.com.clinics.DTOs.cadastro.MedicoRequestDTO;
 import biovitta.com.clinics.DTOs.cadastro.PacienteRequestDTO;
+import biovitta.com.clinics.entities.Medico;
 import biovitta.com.clinics.entities.Paciente;
 import biovitta.com.clinics.entities.Permissao;
 import biovitta.com.clinics.entities.Usuario;
+import biovitta.com.clinics.repositories.MedicoRepositorio;
 import biovitta.com.clinics.repositories.PacienteRepositorio;
 import biovitta.com.clinics.repositories.UsuarioRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +25,9 @@ public class UsuarioService {
 
     @Autowired
     UsuarioRepositorio usuarioRepositorio;
+
+    @Autowired
+    MedicoRepositorio medicoRepositorio;
 
     @Autowired
     PasswordEncoder config;
@@ -45,5 +53,37 @@ public class UsuarioService {
 
 
         return  new PacienteDTO(novoPaciente);
+    }
+
+    @Transactional
+    public MedicoDTO novoMedico(MedicoRequestDTO dto){
+        if(medicoRepositorio.existsByEmail(dto.getEmail())){
+            throw new RuntimeException("Email em uso!");
+        }
+        Medico novoMedico = new Medico();
+        novoMedico.setCrm(dto.getCrm());
+        novoMedico.setNome(dto.getNome());
+        novoMedico.setEmail(dto.getEmail());
+        novoMedico.setTelefone(dto.getTelefone());
+        novoMedico.setImgUrl(dto.getImgUrl());
+        novoMedico = medicoRepositorio.save(novoMedico);
+
+        Usuario usuario = new Usuario();
+        usuario.setRole(Permissao.MEDICO);
+        usuario.setUsuario(dto.getEmail());
+        usuario.setSenha(config.encode(dto.getSenha()));
+
+        usuario = usuarioRepositorio.save(usuario);
+
+        return  new MedicoDTO(novoMedico);
+    }
+
+    public String novoAdministrador(UsuarioDTO dto){
+        Usuario usuario = new Usuario();
+        usuario.setRole(Permissao.ADMIN);
+        usuario.setUsuario(dto.getUsuario());
+        usuario.setSenha(config.encode(dto.getSenha()));
+        usuario = usuarioRepositorio.save(usuario);
+        return "Novo usuário(ADM) criado com sucesso!";
     }
 }

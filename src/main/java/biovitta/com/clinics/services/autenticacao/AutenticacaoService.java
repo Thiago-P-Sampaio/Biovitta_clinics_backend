@@ -1,6 +1,7 @@
 package biovitta.com.clinics.services.autenticacao;
 
 import biovitta.com.clinics.DTOs.login.AutenticacaoDTO;
+import biovitta.com.clinics.DTOs.login.RespostaAutenticacaoDTO;
 import biovitta.com.clinics.entities.Usuario;
 import biovitta.com.clinics.repositories.UsuarioRepositorio;
 import jakarta.validation.Valid;
@@ -22,12 +23,12 @@ public class AutenticacaoService {
     @Autowired
     TokenService tokenService;
 
-    public String login( @Valid AutenticacaoDTO dados ){
+    public RespostaAutenticacaoDTO login(@Valid AutenticacaoDTO dados ){
         var credenciaisUsuario = new UsernamePasswordAuthenticationToken(dados.usuario(), dados.senha());
         var auth = this.authenticationManager.authenticate(credenciaisUsuario);
         var token = tokenService.gerarToken((Usuario) auth.getPrincipal());
-        return "Chave de acesso: " + token;
-
+        var usuario = (Usuario) auth.getPrincipal();
+        return new RespostaAutenticacaoDTO(token, usuario);
     }
 
 }
