@@ -5,9 +5,11 @@ import biovitta.com.clinics.DTOs.MedicoDTO;
 import biovitta.com.clinics.DTOs.MedicoEspecialidadesDTO;
 import biovitta.com.clinics.DTOs.PacienteDTO;
 import biovitta.com.clinics.DTOs.cadastro.MedicoRequestDTO;
+import biovitta.com.clinics.entities.Especialidades;
 import biovitta.com.clinics.entities.Medico;
 import biovitta.com.clinics.entities.Paciente;
 import biovitta.com.clinics.entities.Usuario;
+import biovitta.com.clinics.repositories.EspecialidadeRepositorio;
 import biovitta.com.clinics.repositories.MedicoRepositorio;
 import biovitta.com.clinics.repositories.UsuarioRepositorio;
 import jakarta.persistence.EntityNotFoundException;
@@ -28,6 +30,9 @@ public class MedicoService {
 
     @Autowired
     UsuarioRepositorio usuarioRepositorio;
+
+    @Autowired
+    EspecialidadeRepositorio especialidadeRepositorio;
 
     @Autowired
     PasswordEncoder config;
@@ -57,7 +62,14 @@ public class MedicoService {
                 .filter(s -> !s.isBlank())
                 .ifPresent(medico::setImgUrl);
 
-        medico = medicoRepositorio.save(medico);
+        Optional.ofNullable(dto.getEspecialidadesIds())
+                .filter(list -> !list.isEmpty())
+                .ifPresent(ids -> {
+                    List<Especialidades> especialidades = especialidadeRepositorio.findAllById(ids);
+                    medico.setEspecialidades(especialidades);
+                });
+
+        medicoRepositorio.save(medico);
 
         Usuario usuario = usuarioRepositorio.findById(medico.getUsuario().getUsuarioId()).get();
         Optional.ofNullable(dto.getSenha())

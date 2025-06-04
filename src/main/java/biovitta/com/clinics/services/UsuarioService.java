@@ -73,7 +73,7 @@ public class UsuarioService {
         novoMedico.setImgUrl(dto.getImgUrl());
 
         List<Especialidades> especialidades = especialidadeRepositorio
-                .findAllById(dto.getEspecialidesIds());
+                .findAllById(dto.getEspecialidadesIds());
 
         novoMedico.setEspecialidades(especialidades);
 
