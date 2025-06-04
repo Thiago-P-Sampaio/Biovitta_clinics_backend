@@ -87,3 +87,10 @@
 
 ### Medico Controller: `biovitta/api/medicos`
 - GET(especialidades por médico): http://localhost:8080/biovitta/api/medicos/{crm}/especialidades
+
+### O que há de fazer:
+- [ ] Retornar Especialidades | Controller e Service com os métodos
+- [ ] Consultas - Service/Controller - Editar | Deletar | GET todas as consultas!
+- [ ] TESTES POSTMAN
+- [ ] Definir os níveis de Acesso!
+- [ ] Geração de Relatório | Service + DTO + Controller
