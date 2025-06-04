@@ -12,18 +12,18 @@ public class MedicoRequestDTO {
     private String telefone;
     private String imgUrl;
     private String senha;
-    private List<Long> especialidesIds;
+    private List<Long> especialidadesIds;
 
 
     public MedicoRequestDTO(String crm, String nome, String email, String telefone,
-                            String imgUrl, String senha, List<Long> especialidesIds) {
+                            String imgUrl, String senha, List<Long> especialidadesIds) {
         this.crm = crm;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.imgUrl = imgUrl;
         this.senha = senha;
-        this.especialidesIds = especialidesIds;
+        this.especialidadesIds = especialidadesIds;
     }
 
     public MedicoRequestDTO(Medico entity){
@@ -33,7 +33,7 @@ public class MedicoRequestDTO {
         telefone = entity.getTelefone();
         imgUrl = entity.getImgUrl();
         senha = null;
-        especialidesIds = entity.getEspecialidades()
+        especialidadesIds = entity.getEspecialidades()
                 .stream()
                 .map(especialidade -> especialidade.getEspecialidadeId())
                 .toList();
@@ -90,11 +90,11 @@ public class MedicoRequestDTO {
         this.senha = senha;
     }
 
-    public List<Long> getEspecialidesIds() {
-        return especialidesIds;
+    public List<Long> getEspecialidadesIds() {
+        return especialidadesIds;
     }
 
-    public void setEspecialidesIds(List<Long> especialidesIds) {
-        this.especialidesIds = especialidesIds;
+    public void setEspecialidadesIds(List<Long> especialidadesIds) {
+        this.especialidadesIds = especialidadesIds;
     }
 }
