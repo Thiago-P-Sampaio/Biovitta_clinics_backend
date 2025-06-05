@@ -63,6 +63,7 @@ public class ConsultaService {
          return "Consulta deletada com sucesso!";
         }
 
+        @Transactional
         public List<ConsultaDTO> listarConsultas(){
             return consultaRepositorio.findAll()
                     .stream()
@@ -70,12 +71,14 @@ public class ConsultaService {
                     .collect(Collectors.toList());
         }
 
+        @Transactional
         public ConsultaDTO buscarConsulta(Long id){
             Consulta consulta = consultaRepositorio.findById(id).
                     orElseThrow(() -> new EntityNotFoundException("Consulta não encontrada com o  ID: " + id));
             return new ConsultaDTO(consulta);
         }
 
+        @Transactional
         public ConsultaDTO editarConsulta(ConsultaDTO dto, Long id){
             Consulta consulta = consultaRepositorio.findById(id).
                     orElseThrow(() -> new EntityNotFoundException("Consulta não encontrada com o  ID: " + id));
