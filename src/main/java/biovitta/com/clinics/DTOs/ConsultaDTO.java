@@ -1,8 +1,12 @@
 package biovitta.com.clinics.DTOs;
 
 import biovitta.com.clinics.entities.Consulta;
+import biovitta.com.clinics.entities.Especialidades;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ConsultaDTO {
 
@@ -10,6 +14,7 @@ public class ConsultaDTO {
     private LocalDateTime dataConsulta;
     private String paciente;
     private String medico;
+    private List<EspecialidadesDTO> especialidades;
 
     public ConsultaDTO(LocalDateTime dataConsulta) {
         this.dataConsulta = dataConsulta;
@@ -18,11 +23,14 @@ public class ConsultaDTO {
     public ConsultaDTO() {
     }
 
-    public ConsultaDTO(Consulta entity){
-        consultaId = entity.getConsultaId();
-        dataConsulta = entity.getDataConsulta();
-        paciente = entity.getPaciente().getNome();
-        medico = entity.getMedico().getNome();
+    public ConsultaDTO(Consulta entity) {
+        this.consultaId = entity.getConsultaId();
+        this.dataConsulta = entity.getDataConsulta();
+        this.paciente = entity.getPaciente().getNome();
+        this.medico = entity.getMedico().getNome();
+        this.especialidades = entity.getMedico().getEspecialidades()
+                .stream().map(EspecialidadesDTO::new)
+                .collect(Collectors.toList());
     }
 
     public Long getConsultaId() {
@@ -55,5 +63,13 @@ public class ConsultaDTO {
 
     public void setMedico(String medico) {
         this.medico = medico;
+    }
+
+    public List<EspecialidadesDTO> getEspecialidades() {
+        return especialidades;
+    }
+
+    public void setEspecialidades(List<EspecialidadesDTO> especialidades) {
+        this.especialidades = especialidades;
     }
 }

@@ -66,4 +66,12 @@ public class Consulta {
     public void setMedico(Medico medico) {
         this.medico = medico;
     }
+
+    public Especialidades getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(Especialidades especialidade) {
+        this.especialidade = especialidade;
+    }
 }

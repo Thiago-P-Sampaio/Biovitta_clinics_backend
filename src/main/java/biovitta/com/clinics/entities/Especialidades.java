@@ -3,6 +3,7 @@ package biovitta.com.clinics.entities;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table (name =  "tb_especialidade")
