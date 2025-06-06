@@ -59,10 +59,6 @@
   "especialidadesIds": [1, 3, 5]
 }
    ```
-- GET(todos médicos): http://localhost:8080/biovitta/api/usuario/medico/get/all
-- GET(Médico por ID): http://localhost:8080/biovitta/api/usuario/medico/get/{crm}
-- DELETE(Médico por ID): http://localhost:8080/biovitta/api/usuario/medico/dell/{crm}
-- PUT(Médico por ID): http://localhost:8080/biovitta/api/usuario/medico/edit/{crm}
 
 ##### -Usuário(ADM):
 - POST(registrar adm): http://localhost:8080/biovitta/api/usuario/adm/add
@@ -87,10 +83,23 @@
 
 ### Medico Controller: `biovitta/api/medicos`
 - GET(especialidades por médico): http://localhost:8080/biovitta/api/medicos/{crm}/especialidades
+- GET(todos médicos): http://localhost:8080/biovitta/api/usuario/medico/get/all
+- GET(Médico por ID): http://localhost:8080/biovitta/api/usuario/medico/get/{crm}
+- DELETE(Médico por ID): http://localhost:8080/biovitta/api/usuario/medico/dell/{crm}
+- PUT(Médico por ID): http://localhost:8080/biovitta/api/usuario/medico/edit/{crm}
 
-### O que há de fazer:
-- [ ] Retornar Especialidades | Controller e Service com os métodos
-- [ ] Consultas - Service/Controller - Editar | Deletar | GET todas as consultas!
-- [ ] TESTES POSTMAN
-- [ ] Definir os níveis de Acesso!
-- [ ] Geração de Relatório | Service + DTO + Controller
+### Especialidades: `biovitta/api/especialidades`
+
+- POST (especialidade):  http://localhost:8080/biovitta/api/especialidades/add
+```JSON
+{
+  "nome": "clínico"
+}
+```
+- GET (todas as especialidades): http://localhost:8080/biovitta/api/especialidades/get/all
+- GET (especialidade por ID): http://localhost:8080/biovitta/api/especialidades/get/{id}
+- PUT (especialidade por ID): http://localhost:8080/biovitta/api/especialidades/edit/{id}
+- DELETE (especialidade por ID): http://localhost:8080/biovitta/api/especialidades/dell/{id}
+
+### Relatórios: `biovitta/api/relatorios`
+- GET (consultas): http://localhost:8080/biovitta/api/relatorios/consultas
