@@ -42,4 +42,5 @@ public class MedicoController {
     public ResponseEntity<MedicoDTO> editarMedico(@PathVariable String crm, @RequestBody MedicoRequestDTO dto){
         return ResponseEntity.ok(medicoService.editarMedico(dto, crm));
     }
+
 }

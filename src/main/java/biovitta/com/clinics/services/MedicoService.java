@@ -118,4 +118,11 @@ public class MedicoService {
         return new MedicoEspecialidadesDTO(medico);
     }
 
+
+    @Transactional
+    public List<MedicoDTO> listarMedicosBusca(String nome){
+        List<Medico> medico = medicoRepositorio.findByNomeContainingIgnoreCase(nome);
+        return  medico.stream().map(MedicoDTO::new).toList();
+    }
+
 }

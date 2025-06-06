@@ -5,8 +5,10 @@ import biovitta.com.clinics.DTOs.PacienteDTO;
 import biovitta.com.clinics.DTOs.UsuarioDTO;
 import biovitta.com.clinics.DTOs.cadastro.MedicoRequestDTO;
 import biovitta.com.clinics.DTOs.cadastro.PacienteRequestDTO;
+import biovitta.com.clinics.entities.Medico;
 import biovitta.com.clinics.entities.Paciente;
 import biovitta.com.clinics.repositories.MedicoRepositorio;
+import biovitta.com.clinics.repositories.PacienteRepositorio;
 import biovitta.com.clinics.services.MedicoService;
 import biovitta.com.clinics.services.PacienteService;
 import biovitta.com.clinics.services.UsuarioService;
@@ -29,6 +31,7 @@ public class UsuarioController {
 
     @Autowired
     MedicoService medicoService;
+
 
 
         @PostMapping("/paciente/add")
@@ -64,6 +67,17 @@ public class UsuarioController {
     @PutMapping("paciente/edit/{id}")
     public  ResponseEntity<PacienteDTO>  editarPaciente(@PathVariable Long id, @RequestBody PacienteRequestDTO dto){
             return ResponseEntity.ok(pacienteService.editarPaciente(dto, id));
+    }
+
+
+    @GetMapping("/paciente/busca")
+    public List<PacienteDTO> buscarPorNome(@RequestParam String nome) {
+        return pacienteService.listarPacientesBusca(nome);
+    }
+
+    @GetMapping("/medico/busca")
+    public List<MedicoDTO> buscarPorMedico(@RequestParam String nome) {
+            return medicoService.listarMedicosBusca( nome );
     }
 
 }

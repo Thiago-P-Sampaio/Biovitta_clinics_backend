@@ -76,6 +76,12 @@ public class PacienteService {
         return "Paciente deletado com sucesso!";
     }
 
+    @Transactional
+    public List<PacienteDTO> listarPacientesBusca(String nome){
+        List<Paciente> paciente = pacienteRepositorio.findByNomeContainingIgnoreCase(nome);
+        return paciente.stream().map(PacienteDTO::new).collect(Collectors.toList());
+    }
+
 
 
 }
