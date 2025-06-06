@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+              http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="relatorio_consultas" pageWidth="595" pageHeight="842" columnWidth="555"
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="12345678-aaaa-bbbb-cccc-123456789abc">
+
+
+    <parameter name="dataGeracao" class="java.util.Date"/>
+
+    <field name="consultaId" class="java.lang.Long"/>
+    <field name="dataConsulta" class="java.lang.String"/>
+    <field name="paciente" class="java.lang.String"/>
+    <field name="medico" class="java.lang.String"/>
+
+
+
+
+    <variable name="totalConsultas" class="java.lang.Integer" calculation="Count">
+        <variableExpression><![CDATA[$F{consultaId}]]></variableExpression>
+    </variable>
+
+
+
+    <title>
+        <band height="50">
+            <staticText>
+                <reportElement x="0" y="10" width="555" height="30"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="16" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Relatório de Consultas]]></text>
+            </staticText>
+        </band>
+    </title>
+
+
+    <pageHeader>
+        <band height="20">
+            <textField>
+                <reportElement x="0" y="0" width="300" height="20"/>
+                <textElement textAlignment="Left"/>
+                <textFieldExpression><![CDATA["Gerado em: " + new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm").format($P{dataGeracao})]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageHeader>
+
+
+    <columnHeader>
+        <band height="20">
+            <staticText>
+                <reportElement x="0" y="0" width="80" height="20"/>
+                <text><![CDATA[Nº Consulta]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="90" y="0" width="150" height="20"/>
+                <text><![CDATA[Data da Consulta]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="250" y="0" width="150" height="20"/>
+                <text><![CDATA[Paciente]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="410" y="0" width="130" height="20"/>
+                <text><![CDATA[Médico]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+
+    <detail>
+        <band height="20">
+            <textField>
+                <reportElement x="0" y="0" width="80" height="20"/>
+                <textFieldExpression><![CDATA[$F{consultaId}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="90" y="0" width="150" height="20"/>
+                <textFieldExpression><![CDATA[$F{dataConsulta}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="250" y="0" width="150" height="20"/>
+                <textFieldExpression><![CDATA[$F{paciente}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="410" y="0" width="130" height="20"/>
+                <textFieldExpression><![CDATA[$F{medico}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+
+    <pageFooter>
+        <band height="20">
+            <textField>
+                <reportElement x="0" y="0" width="200" height="20"/>
+                <textElement textAlignment="Left"/>
+                <textFieldExpression><![CDATA["Nº de Consultas: " + $V{totalConsultas}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+
+</jasperReport>
