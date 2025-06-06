@@ -66,23 +66,4 @@ public class UsuarioController {
             return ResponseEntity.ok(pacienteService.editarPaciente(dto, id));
     }
 
-    @GetMapping("medico/get/all")
-    public  ResponseEntity<List<MedicoDTO>> listarMedicos(){
-            return ResponseEntity.ok(medicoService.listarMedicos());
-    }
-
-    @GetMapping("medico/get/{crm}")
-    public ResponseEntity<MedicoDTO> buscarMedico(@PathVariable String crm){
-            return ResponseEntity.ok(medicoService.buscarMedico(crm));
-    }
-
-    @DeleteMapping("medico/dell/{crm}")
-    public String deletarMedico(@PathVariable String crm){
-            return medicoService.deletarMedico(crm);
-    }
-
-    @PutMapping("medico/edit/{crm}")
-    public ResponseEntity<MedicoDTO> editarMedico(@PathVariable String crm, @RequestBody MedicoRequestDTO dto){
-            return ResponseEntity.ok(medicoService.editarMedico(dto, crm));
-    }
 }

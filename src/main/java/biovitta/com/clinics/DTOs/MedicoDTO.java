@@ -3,6 +3,9 @@ package biovitta.com.clinics.DTOs;
 import biovitta.com.clinics.entities.Medico;
 import jakarta.persistence.Column;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class MedicoDTO {
 
     private String crm;
@@ -10,16 +13,18 @@ public class MedicoDTO {
     private String email;
     private String telefone;
     private String imgUrl;
+    private List<EspecialidadesDTO> especialidades;
 
     public MedicoDTO() {
     }
 
-    public MedicoDTO(String crm, String nome, String email, String telefone, String imgUrl) {
+    public MedicoDTO(String crm, String nome, String email, String telefone, String imgUrl, List<EspecialidadesDTO> especialidades) {
         this.crm = crm;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.imgUrl = imgUrl;
+        this.especialidades = especialidades;
     }
 
     public  MedicoDTO(Medico entity){
@@ -28,6 +33,9 @@ public class MedicoDTO {
         email = entity.getEmail();
         telefone = entity.getTelefone();
         imgUrl = entity.getImgUrl();
+        especialidades = entity.getEspecialidades()
+                .stream().map(EspecialidadesDTO::new)
+                .collect(Collectors.toList());
     }
 
     public String getCrm() {
@@ -68,5 +76,13 @@ public class MedicoDTO {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public List<EspecialidadesDTO> getEspecialidades() {
+        return especialidades;
+    }
+
+    public void setEspecialidades(List<EspecialidadesDTO> especialidades) {
+        this.especialidades = especialidades;
     }
 }

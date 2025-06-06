@@ -84,6 +84,7 @@ public class MedicoService {
 
     }
 
+    @Transactional
     public List<MedicoDTO> listarMedicos(){
         return medicoRepositorio.findAll()
                 .stream()
@@ -91,12 +92,14 @@ public class MedicoService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public MedicoDTO buscarMedico(String crm){
         Medico medico = medicoRepositorio.findById(crm).
                 orElseThrow(() -> new EntityNotFoundException("Médico não encontrado com CRM: " + crm));
         return new MedicoDTO(medico);
     }
 
+    @Transactional
     public  String deletarMedico(String crm){
         Medico medico = medicoRepositorio.findById(crm).
                 orElseThrow(() -> new EntityNotFoundException("Médico não encontrado com CRM: " + crm));
