@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -86,7 +88,12 @@ public class ConsultaService {
             if(agendado){
                 throw new  IllegalArgumentException("Data Indisponível");
             }
-            consulta.setDataConsulta(dto.getDataConsulta());
+            Optional.ofNullable(dto.getDataConsulta())
+                    .filter(data -> !data.isBefore(LocalDateTime.now()))
+                    .ifPresentOrElse(
+                            consulta::setDataConsulta,
+                            () -> { throw new IllegalArgumentException("Data da consulta inválida ou ausente."); }
+                    );
             consulta = consultaRepositorio.save(consulta);
             return new ConsultaDTO(consulta);
         }

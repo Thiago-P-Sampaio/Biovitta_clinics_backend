@@ -34,7 +34,10 @@ public class EspecialidadesService {
     public EspecialidadesDTO editarEspecialidade(Long id, EspecialidadesDTO dto) {
         Especialidades especialidade = especialidadeRepositorio.findById(id).get();
         if(especialidade != null) {
-            especialidade.setNome(dto.getNome());
+            Optional.ofNullable(dto.getNome())
+                    .filter(nome -> !nome.isBlank())
+                    .ifPresent(especialidade::setNome);
+            especialidadeRepositorio.save(especialidade);
             return new EspecialidadesDTO(especialidade);
         } else {
             return null;
