@@ -8,4 +8,6 @@ import java.time.LocalDateTime;
 public interface ConsultaRepositorio extends JpaRepository<Consulta, Long> {
 
     boolean existsByMedico_CrmAndDataConsulta(String crm, LocalDateTime dataConsulta);
+
+    Consulta findByMedico_Crm(String crm);
 }

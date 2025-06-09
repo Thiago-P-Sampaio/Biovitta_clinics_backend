@@ -2,8 +2,10 @@ package biovitta.com.clinics.services;
 
 import biovitta.com.clinics.DTOs.PacienteDTO;
 import biovitta.com.clinics.DTOs.cadastro.PacienteRequestDTO;
+import biovitta.com.clinics.entities.Consulta;
 import biovitta.com.clinics.entities.Paciente;
 import biovitta.com.clinics.entities.Usuario;
+import biovitta.com.clinics.repositories.ConsultaRepositorio;
 import biovitta.com.clinics.repositories.PacienteRepositorio;
 import biovitta.com.clinics.repositories.UsuarioRepositorio;
 import jakarta.persistence.EntityNotFoundException;
@@ -12,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +30,8 @@ public class PacienteService {
 
     @Autowired
     PasswordEncoder config;
+    @Autowired
+    private ConsultaRepositorio consultaRepositorio;
 
 
     @Transactional
@@ -69,6 +74,11 @@ public class PacienteService {
     public String deletarPaciente(Long id){
         Paciente paciente = pacienteRepositorio.findById(id).
                 orElseThrow(() -> new EntityNotFoundException("Paciente não encontrado com ID: " + id));
+
+        //Exclua também as consultas desse paciente
+        // NÃO SEI SE NUM CONTEXTO REAL DEVE-SE APLICAR ISSO!
+        List<Consulta> consultaPaciente = Collections.singletonList(consultaRepositorio.getReferenceById(id));
+        consultaRepositorio.deleteAll(consultaPaciente);
 
         usuarioRepositorio.deleteById(paciente.getUsuario().getUsuarioId());
         pacienteRepositorio.deleteById(id);

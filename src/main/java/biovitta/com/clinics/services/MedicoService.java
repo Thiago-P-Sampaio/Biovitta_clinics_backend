@@ -5,10 +5,8 @@ import biovitta.com.clinics.DTOs.MedicoDTO;
 import biovitta.com.clinics.DTOs.MedicoEspecialidadesDTO;
 import biovitta.com.clinics.DTOs.PacienteDTO;
 import biovitta.com.clinics.DTOs.cadastro.MedicoRequestDTO;
-import biovitta.com.clinics.entities.Especialidades;
-import biovitta.com.clinics.entities.Medico;
-import biovitta.com.clinics.entities.Paciente;
-import biovitta.com.clinics.entities.Usuario;
+import biovitta.com.clinics.entities.*;
+import biovitta.com.clinics.repositories.ConsultaRepositorio;
 import biovitta.com.clinics.repositories.EspecialidadeRepositorio;
 import biovitta.com.clinics.repositories.MedicoRepositorio;
 import biovitta.com.clinics.repositories.UsuarioRepositorio;
@@ -18,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,6 +35,8 @@ public class MedicoService {
 
     @Autowired
     PasswordEncoder config;
+    @Autowired
+    private ConsultaRepositorio consultaRepositorio;
 
 
     @Transactional
@@ -103,6 +104,11 @@ public class MedicoService {
     public  String deletarMedico(String crm){
         Medico medico = medicoRepositorio.findById(crm).
                 orElseThrow(() -> new EntityNotFoundException("Médico não encontrado com CRM: " + crm));
+
+        //Exclua também as consultas desse paciente
+        // NÃO SEI SE NUM CONTEXTO REAL DEVE-SE APLICAR ISSO!
+        List<Consulta> consultaMedico = Collections.singletonList(consultaRepositorio.findByMedico_Crm(crm));
+        consultaRepositorio.deleteAll(consultaMedico);
 
         usuarioRepositorio.deleteById(medico.getUsuario().getUsuarioId());
         medicoRepositorio.deleteById(crm);
