@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Long> {
     UserDetails findByUsuario(String usuario);
 
+
     Paciente deleteByUsuario(String usuario);
 
 }

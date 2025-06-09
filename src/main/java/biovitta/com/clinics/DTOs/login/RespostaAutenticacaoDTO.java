@@ -12,7 +12,7 @@ public class RespostaAutenticacaoDTO {
 
     public RespostaAutenticacaoDTO(String token, Usuario entity) {
         this.token = token;
-        this.role = entity.getRole().toString()  ;
+        this.role = entity.getRole().toString();
         this.usuario = entity.getUsuario() ;
     }
 

@@ -42,7 +42,7 @@
    ```
 - GET (todos pacientes): http://localhost:8080/biovitta/api/usuario/paciente/get/all
 - GET (paciente por ID): http://localhost:8080/biovitta/api/usuario/paciente/get/{id}
-- DELETE (paciente por ID): http://localhost:8080/biovitta/api/usuario/paciente/dell/{id}
+- DELETE (paciente por ID): http://localhost:8080/biovitta'/api/usuario/paciente/dell/{id}'
 - PUT(paciente por ID): http://localhost:8080/biovitta/api/usuario/paciente/edit/{id}
 
 #### -Medico:
@@ -83,7 +83,7 @@
 
 ### Medico Controller: `biovitta/api/medicos`
 - GET(especialidades por médico): http://localhost:8080/biovitta/api/medicos/{crm}/especialidades
-- GET(todos médicos): http://localhost:8080/biovitta/api/usuario/medico/get/all
+  - GET(todos médicos): http://localhost:8080/biovitta/api/usuario/medico/get/all
 - GET(Médico por ID): http://localhost:8080/biovitta/api/usuario/medico/get/{crm}
 - DELETE(Médico por ID): http://localhost:8080/biovitta/api/usuario/medico/dell/{crm}
 - PUT(Médico por ID): http://localhost:8080/biovitta/api/usuario/medico/edit/{crm}
@@ -103,3 +103,7 @@
 
 ### Relatórios: `biovitta/api/relatorios`
 - GET (consultas): http://localhost:8080/biovitta/api/relatorios/consultas
+
+### Busca barra de pesquisa: `biovitta/api/usuario` 
+- GET (buscar paciente | Barra de pesquisa): http://localhost:8080/biovitta/api/usuario/paciente/busca?nome=
+- GET (buscar médico | Barra de pesquisa): http://localhost:8080/biovitta/api/usuario/medico/busca?nome=

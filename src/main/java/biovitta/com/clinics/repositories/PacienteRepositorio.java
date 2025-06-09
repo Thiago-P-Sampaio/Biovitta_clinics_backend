@@ -14,5 +14,7 @@ public interface PacienteRepositorio extends JpaRepository<Paciente, Long> {
 
     List<Paciente> findByNomeContainingIgnoreCase(String nome);
 
+    Paciente findByUsuario(Usuario usuario);
+
     boolean existsByEmail(String email);
 }

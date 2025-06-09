@@ -14,34 +14,46 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class FiltroSeguranca extends OncePerRequestFilter {
 
     @Autowired
-    TokenService tokenService;
+    private TokenService tokenService;
 
     @Autowired
-    UsuarioRepositorio usuarioRepositorio;
-
+    private UsuarioRepositorio usuarioRepositorio;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        var token = this.recoverToken(request);
-        if(token != null){
-            var returnUsuario = tokenService.validarToken(token);
-            UserDetails usuario = usuarioRepositorio.findByUsuario(returnUsuario);
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+        String token = recoverToken(request);
 
-            var autenticacao = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
-            SecurityContextHolder.getContext().setAuthentication(autenticacao);
+        if (token != null) {
+            String username = tokenService.validarToken(token);
+            if (username != null) {
+                // Busca o usuário de forma segura usando Optional
+                Optional<UserDetails> usuarioOpt = Optional.ofNullable(usuarioRepositorio.findByUsuario(username));
+                if (usuarioOpt.isPresent()) {
+                    UserDetails usuario = usuarioOpt.get();
+                    UsernamePasswordAuthenticationToken autenticacao =
+                            new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(autenticacao);
+                }
+                // Se usuário não encontrado, não autentica e continua a cadeia normalmente
+            }
         }
+
         filterChain.doFilter(request, response);
     }
 
-    private  String recoverToken(HttpServletRequest request){
-        var HeaderAuth = request.getHeader("Authorization");
-        if(HeaderAuth == null) return null;
-        return HeaderAuth.replace("Bearer ", "");
+    private String recoverToken(HttpServletRequest request) {
+        String headerAuth = request.getHeader("Authorization");
+        if (headerAuth == null || !headerAuth.startsWith("Bearer ")) {
+            return null;
+        }
+        return headerAuth.substring(7); // Remove "Bearer " do início
     }
-
 }

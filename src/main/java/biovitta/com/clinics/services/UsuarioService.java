@@ -5,6 +5,7 @@ import biovitta.com.clinics.DTOs.PacienteDTO;
 import biovitta.com.clinics.DTOs.UsuarioDTO;
 import biovitta.com.clinics.DTOs.cadastro.MedicoRequestDTO;
 import biovitta.com.clinics.DTOs.cadastro.PacienteRequestDTO;
+import biovitta.com.clinics.DTOs.login.BuscarUsuarioLogadoDTO;
 import biovitta.com.clinics.entities.*;
 import biovitta.com.clinics.repositories.EspecialidadeRepositorio;
 import biovitta.com.clinics.repositories.MedicoRepositorio;
@@ -96,6 +97,18 @@ public class UsuarioService {
         usuario.setSenha(config.encode(dto.getSenha()));
         usuario = usuarioRepositorio.save(usuario);
         return "Novo usuário(ADM) criado com sucesso!";
+    }
+
+    public BuscarUsuarioLogadoDTO buscarUsuarioLogado(String email){
+        Usuario usuario = (Usuario) usuarioRepositorio.findByUsuario(email);
+        return new BuscarUsuarioLogadoDTO(usuario);
+    }
+
+    @Transactional
+    public PacienteDTO buscarPacientePorEmail(String email){
+        Usuario usuario = (Usuario) usuarioRepositorio.findByUsuario(email);
+        Paciente paciente = pacienteRepositorio.findByUsuario(usuario);
+        return new PacienteDTO(paciente);
     }
 
 
