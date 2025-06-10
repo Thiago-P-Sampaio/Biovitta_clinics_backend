@@ -77,8 +77,10 @@ public class PacienteService {
 
         //Exclua também as consultas desse paciente
         // NÃO SEI SE NUM CONTEXTO REAL DEVE-SE APLICAR ISSO!
+        if(!paciente.getConsultas().isEmpty()){
         List<Consulta> consultaPaciente = Collections.singletonList(consultaRepositorio.getReferenceById(id));
         consultaRepositorio.deleteAll(consultaPaciente);
+        }
 
         usuarioRepositorio.deleteById(paciente.getUsuario().getUsuarioId());
         pacienteRepositorio.deleteById(id);

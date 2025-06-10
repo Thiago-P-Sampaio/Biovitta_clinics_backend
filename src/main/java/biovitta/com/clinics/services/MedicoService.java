@@ -107,8 +107,10 @@ public class MedicoService {
 
         //Exclua também as consultas desse paciente
         // NÃO SEI SE NUM CONTEXTO REAL DEVE-SE APLICAR ISSO!
+        if(!medico.getConsultasMedico().isEmpty()){
         List<Consulta> consultaMedico = Collections.singletonList(consultaRepositorio.findByMedico_Crm(crm));
         consultaRepositorio.deleteAll(consultaMedico);
+        }
 
         usuarioRepositorio.deleteById(medico.getUsuario().getUsuarioId());
         medicoRepositorio.deleteById(crm);
