@@ -2,12 +2,9 @@ package biovitta.com.clinics.services;
 
 
 import biovitta.com.clinics.DTOs.MedicoDTO;
-import biovitta.com.clinics.DTOs.MedicoEspecialidadesDTO;
-import biovitta.com.clinics.DTOs.PacienteDTO;
 import biovitta.com.clinics.DTOs.cadastro.MedicoRequestDTO;
 import biovitta.com.clinics.entities.*;
 import biovitta.com.clinics.repositories.ConsultaRepositorio;
-import biovitta.com.clinics.repositories.EspecialidadeRepositorio;
 import biovitta.com.clinics.repositories.MedicoRepositorio;
 import biovitta.com.clinics.repositories.UsuarioRepositorio;
 import jakarta.persistence.EntityNotFoundException;
@@ -30,8 +27,6 @@ public class MedicoService {
     @Autowired
     UsuarioRepositorio usuarioRepositorio;
 
-    @Autowired
-    EspecialidadeRepositorio especialidadeRepositorio;
 
     @Autowired
     PasswordEncoder config;
@@ -63,12 +58,9 @@ public class MedicoService {
                 .filter(s -> !s.isBlank())
                 .ifPresent(medico::setImgUrl);
 
-        Optional.ofNullable(dto.getEspecialidadesIds())
-                .filter(list -> !list.isEmpty())
-                .ifPresent(ids -> {
-                    List<Especialidades> especialidades = especialidadeRepositorio.findAllById(ids);
-                    medico.setEspecialidades(especialidades);
-                });
+        Optional.ofNullable(dto.getEspecialidades())
+                .filter(s -> !s.isBlank())
+                .ifPresent(medico::setEspecialidades);
 
         medicoRepositorio.save(medico);
 
@@ -118,13 +110,6 @@ public class MedicoService {
         return "Médico deletado com Sucesso!";
     }
 
-    @Transactional
-    public MedicoEspecialidadesDTO medicoEspecialidades(String crm){
-        Medico medico = medicoRepositorio.findById(crm).
-                orElseThrow(() -> new EntityNotFoundException("Médico não encontrado com CRM: " + crm));
-
-        return new MedicoEspecialidadesDTO(medico);
-    }
 
 
     @Transactional

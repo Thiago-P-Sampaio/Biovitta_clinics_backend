@@ -7,7 +7,6 @@ import biovitta.com.clinics.DTOs.cadastro.MedicoRequestDTO;
 import biovitta.com.clinics.DTOs.cadastro.PacienteRequestDTO;
 import biovitta.com.clinics.DTOs.login.BuscarUsuarioLogadoDTO;
 import biovitta.com.clinics.entities.*;
-import biovitta.com.clinics.repositories.EspecialidadeRepositorio;
 import biovitta.com.clinics.repositories.MedicoRepositorio;
 import biovitta.com.clinics.repositories.PacienteRepositorio;
 import biovitta.com.clinics.repositories.UsuarioRepositorio;
@@ -15,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class UsuarioService {
@@ -30,8 +27,7 @@ public class UsuarioService {
     @Autowired
     MedicoRepositorio medicoRepositorio;
 
-    @Autowired
-    EspecialidadeRepositorio especialidadeRepositorio;
+
 
     @Autowired
     PasswordEncoder config;
@@ -72,11 +68,7 @@ public class UsuarioService {
         novoMedico.setEmail(dto.getEmail());
         novoMedico.setTelefone(dto.getTelefone());
         novoMedico.setImgUrl(dto.getImgUrl());
-
-        List<Especialidades> especialidades = especialidadeRepositorio
-                .findAllById(dto.getEspecialidadesIds());
-
-        novoMedico.setEspecialidades(especialidades);
+        novoMedico.setEspecialidades(dto.getEspecialidades());
 
         Usuario usuario = new Usuario();
         usuario.setRole(Permissao.MEDICO);

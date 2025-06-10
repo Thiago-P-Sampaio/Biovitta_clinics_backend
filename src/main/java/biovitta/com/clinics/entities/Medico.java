@@ -20,17 +20,13 @@ public class Medico {
     @Column(name = "img_url")
     private String imgUrl;
 
+    @Column( name = "especialidade")
+    private String especialidades;
+
 
     @OneToMany(mappedBy = "medico")
     private List<Consulta> consultasMedico;
 
-    @ManyToMany
-    @JoinTable(
-            name = "tb_medico_especialidade",
-            joinColumns = @JoinColumn(name = "medico_id"),
-            inverseJoinColumns = @JoinColumn(name = "especialidade_id")
-    )
-    private List<Especialidades> especialidades;
 
 
     @OneToOne
@@ -40,12 +36,13 @@ public class Medico {
     public Medico() {
     }
 
-    public Medico(String crm, String nome, String email, String telefone, String imgUrl) {
+    public Medico(String crm, String nome, String email, String telefone, String imgUrl, String especialidades) {
         this.crm = crm;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.imgUrl = imgUrl;
+        this.especialidades = especialidades;
     }
 
     public String getCrm() {
@@ -96,14 +93,6 @@ public class Medico {
         this.consultasMedico = consultasMedico;
     }
 
-    public List<Especialidades> getEspecialidades() {
-        return especialidades;
-    }
-
-    public void setEspecialidades(List<Especialidades> especialidades) {
-        this.especialidades = especialidades;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
@@ -112,4 +101,11 @@ public class Medico {
         this.usuario = usuario;
     }
 
+    public String getEspecialidades() {
+        return especialidades;
+    }
+
+    public void setEspecialidades(String especialidades) {
+        this.especialidades = especialidades;
+    }
 }

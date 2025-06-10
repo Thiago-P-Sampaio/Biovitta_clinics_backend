@@ -23,9 +23,6 @@ public class Consulta {
     @JoinColumn(name = "medico_id")
     private Medico medico;
 
-    @ManyToOne
-    @JoinColumn(name = "especialidade_id")
-    private Especialidades especialidade;
 
 
     public Consulta() {
@@ -67,11 +64,4 @@ public class Consulta {
         this.medico = medico;
     }
 
-    public Especialidades getEspecialidade() {
-        return especialidade;
-    }
-
-    public void setEspecialidade(Especialidades especialidade) {
-        this.especialidade = especialidade;
-    }
 }
