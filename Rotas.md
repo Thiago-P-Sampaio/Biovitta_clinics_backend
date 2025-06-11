@@ -13,6 +13,14 @@
 }
    ```
 
+### Resposta autenticação!
+```JSON
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiaW92aXR0YSIsInN1YiI6ImpvYW8ubGltYUBjbGluaWNhbWVkaWNhLmNvbSIsImV4cCI6MTc0OTYwMjI2MH0.CmqOa8qW9rcDDrDR1sbNEOa5cPeV30Q6lt5ITDZkjn4",
+  "role": "MEDICO",
+  "usuario": "joao.lima@clinicamedica.com"
+}
+```
 - POST(registrar | paciente): http://localhost:8080/biovitta/auth/register
 
 ```JSON
@@ -56,7 +64,7 @@
   "telefone": "(11) 99876-5432",
   "imgUrl": "https://example.com/imagens/joaopedro.jpg",
   "senha": "medicoForte2025",
-  "especialidadesIds": [1, 3, 5]
+  "especialidades": "cardiologista"
 }
    ```
 
@@ -79,27 +87,24 @@
 }
 ```
 - GET(consulta por paciente):  http://localhost:8080/biovitta/api/consulta/paciente/{id}
+- GET( consultas por id): http://localhost:8080/biovitta/api/consulta/get/{id}
+- GET ( todas as consultas): http://localhost:8080/biovitta/api/consulta/get/all
+- PUT (atualizar consulta): http://localhost:8080/biovitta/api/consulta/edit/{id}
+```JSON
+{
+"dataConsulta": "2025-06-10T14:30:00",
+}
+```
+- DELETE (deletar consulta): http://localhost:8080/biovitta/api/consulta/dell/{id}
 
 
 ### Medico Controller: `biovitta/api/medicos`
-- GET(especialidades por médico): http://localhost:8080/biovitta/api/medicos/{crm}/especialidades
-  - GET(todos médicos): http://localhost:8080/biovitta/api/usuario/medico/get/all
+
+- GET(todos médicos): http://localhost:8080/biovitta/api/usuario/medico/get/all
 - GET(Médico por ID): http://localhost:8080/biovitta/api/usuario/medico/get/{crm}
 - DELETE(Médico por ID): http://localhost:8080/biovitta/api/usuario/medico/dell/{crm}
 - PUT(Médico por ID): http://localhost:8080/biovitta/api/usuario/medico/edit/{crm}
 
-### Especialidades: `biovitta/api/especialidades`
-
-- POST (especialidade):  http://localhost:8080/biovitta/api/especialidades/add
-```JSON
-{
-  "nome": "clínico"
-}
-```
-- GET (todas as especialidades): http://localhost:8080/biovitta/api/especialidades/get/all
-- GET (especialidade por ID): http://localhost:8080/biovitta/api/especialidades/get/{id}
-- PUT (especialidade por ID): http://localhost:8080/biovitta/api/especialidades/edit/{id}
-- DELETE (especialidade por ID): http://localhost:8080/biovitta/api/especialidades/dell/{id}
 
 ### Relatórios: `biovitta/api/relatorios`
 - GET (consultas): http://localhost:8080/biovitta/api/relatorios/consultas
